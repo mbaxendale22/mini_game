@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, Alert } from 'react-native'
 import Title from '../components/ui/Title'
 import NumberContainer from '../components/game/NumberContainer'
 import PrimaryButton from '../components/ui/PrimaryButton'
-
+import Card from '../components/ui/Card'
+import InstructionText from '../components/ui/InstructionText'
 /**
  * Generates the target number for the game
  * @param {number} min - lowest possible value for target number.
@@ -67,8 +68,8 @@ const GameScreen = ({ userNumber, onGameOver }) => {
         <View style={styles.screen}>
             <Title>Opponent's Guess</Title>
             <NumberContainer>{currentGuess}</NumberContainer>
-            <View>
-                <Text>Higher or Lower?</Text>
+            <Card>
+                <InstructionText>Higher or Lower?</InstructionText>
                 <View>
                     <PrimaryButton onPress={() => nextGuess('lower')}>
                         -
@@ -77,8 +78,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
                         +
                     </PrimaryButton>
                 </View>
-            </View>
-            {/* <View>LOG ROUNDS</View> */}
+            </Card>
         </View>
     )
 }
