@@ -14,6 +14,7 @@ import React from 'react'
 const GameOverScreen = ({ roundsNumber, userNumber, onStartNewGame }) => {
     const { width, height } = useWindowDimensions()
 
+    // variable to control image size depending on screen orientation
     let imageSize = 300
 
     if (width < 380) {

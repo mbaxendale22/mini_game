@@ -35,8 +35,11 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     const initalGuess = generateRandomNumberBetween(1, 100, userNumber)
     const [currentGuess, setCurrentGuess] = useState(initalGuess)
     const [guessRounds, setGuessRounds] = useState([initalGuess])
+
+    // getting screen dimensions dynamically to watch for orientation changes
     const { width, height } = useWindowDimensions()
 
+    // watch for new guesses and tigger game over function if guess matches userNumber
     useEffect(() => {
         if (currentGuess === userNumber) {
             onGameOver(guessRounds.length)
@@ -54,6 +57,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
      * @returns {void}
      */
     const nextGuess = (direction) => {
+        // prevent incorrect indication being given to device to guide next guess
         if (
             (direction === 'lower' && currentGuess < userNumber) ||
             (direction === 'greater' && currentGuess > userNumber)
@@ -64,18 +68,22 @@ const GameScreen = ({ userNumber, onGameOver }) => {
             return
         }
 
+        // set max or min directions given the current guess and whether it was too high or low
         if (direction === 'lower') {
             maxBoundary = currentGuess
         } else {
             minBoundary = currentGuess + 1
         }
 
+        // generate a new guess with new max/min boundaries
         const newRandomNumber = generateRandomNumberBetween(
             minBoundary,
             maxBoundary,
             currentGuess,
         )
         setCurrentGuess(newRandomNumber)
+
+        // update # of guess rounds
         setGuessRounds((previousGuessRounds) => [
             newRandomNumber,
             ...previousGuessRounds,
@@ -83,6 +91,8 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     }
 
     const guessRoundsListLength = guessRounds.length
+
+    // conditional layout depending on screen width > or  < 500 pixels
     let content = (
         <>
             <NumberContainer>{currentGuess}</NumberContainer>
