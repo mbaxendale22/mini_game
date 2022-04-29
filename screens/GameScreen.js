@@ -49,9 +49,9 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     }, [])
 
     /**
-     * Generates the target number for the game.
-     * @param {string} direction - whether the next guess will be higher or lower the the previous one
-     * @returns {number} - returns the target number
+     * Onclick event handler for pressing lower than or greater than buttons.
+     * @param {string} direction - which button has been pressed - lower than or greater than
+     * @returns {void}
      */
     const nextGuess = (direction) => {
         if (
