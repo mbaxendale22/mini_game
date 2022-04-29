@@ -5,7 +5,13 @@ import { Ionicons } from '@expo/vector-icons'
 import DIRECTIONS from '../../constants/directions'
 import React from 'react'
 
-const GameContentWide = ({ currentGuess, nextGuess }) => {
+type Props = {
+    currentGuess: number
+    nextGuess: (param: string) => number
+}
+
+const GameContentWide = (props: Props) => {
+    const { currentGuess, nextGuess } = props
     return (
         <>
             <View style={styles.buttonsContainer}>
