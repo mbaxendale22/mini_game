@@ -10,7 +10,7 @@ import { useFonts } from 'expo-font'
 import AppLoading from 'expo-app-loading'
 
 export default function App() {
-    const [userNumber, setUserNumber] = useState()
+    const [userNumber, setUserNumber] = useState<number>()
     const [gameIsOver, setGameIsOver] = useState(true)
     const [guessRounds, setGuessRounds] = useState(0)
     const [fontsLoaded] = useFonts({
@@ -22,11 +22,12 @@ export default function App() {
         return <AppLoading />
     }
 
-    const pickedNumber = (pickedNumber) => {
+    const pickedNumber = (pickedNumber: number): void => {
         setUserNumber(pickedNumber)
         setGameIsOver(false)
     }
-    const endGame = (numberOfRounds) => {
+
+    const endGame = (numberOfRounds: number): void => {
         setGameIsOver(true)
         setGuessRounds(numberOfRounds)
     }

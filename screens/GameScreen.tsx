@@ -5,21 +5,19 @@ import {
     Alert,
     FlatList,
     useWindowDimensions,
+    ListRenderItemInfo,
 } from 'react-native'
 import Title from '../components/ui/Title'
 import GuessLogItem from '../components/game/GuessLogItem'
 import GameContentNarrow from '../components/game/GameContentNarrow'
 import GameContentWide from '../components/game/GameContentWide'
 import DIRECTIONS from '../constants/directions'
-/**
- * Generates the target number for the game
- * @param {number} min - lowest possible value for target number.
- * @param {number} max - highest possible value for target number.
- * @param {number} exclude - The user entered number - prevents match on first try
- * @returns {number} - returns the target number
- */
 
-const generateRandomNumberBetween = (min, max, exclude) => {
+const generateRandomNumberBetween = (
+    min: number,
+    max: number,
+    exclude: number,
+): number => {
     const randomNumber = Math.floor(Math.random() * (max - min)) + min
     if (randomNumber === exclude) {
         return generateRandomNumberBetween(min, max, exclude)
@@ -29,15 +27,21 @@ const generateRandomNumberBetween = (min, max, exclude) => {
 }
 let minBoundary = 1
 let maxBoundary = 100
-const GameScreen = ({ userNumber, onGameOver }) => {
-    const initalGuess = generateRandomNumberBetween(1, 100, userNumber)
-    const [currentGuess, setCurrentGuess] = useState(initalGuess)
-    const [guessRounds, setGuessRounds] = useState([initalGuess])
+
+type Props = {
+    userNumber: number
+    onGameOver: (param: number) => void
+}
+const GameScreen = (props: Props) => {
+    const { userNumber, onGameOver } = props
+    const initialGuess = generateRandomNumberBetween(1, 100, userNumber)
+    const [currentGuess, setCurrentGuess] = useState(initialGuess)
+    const [guessRounds, setGuessRounds] = useState([initialGuess])
 
     // getting screen dimensions dynamically to watch for orientation changes
     const { width, height } = useWindowDimensions()
 
-    // watch for new guesses and tigger game over function if guess matches userNumber
+    // watch for new guesses and trigger game over function if guess matches userNumber
     useEffect(() => {
         if (currentGuess === userNumber) {
             onGameOver(guessRounds.length)
@@ -51,10 +55,8 @@ const GameScreen = ({ userNumber, onGameOver }) => {
 
     /**
      * Onclick event handler for pressing lower than or greater than buttons.
-     * @param {string} direction - which button has been pressed - lower than or greater than
-     * @returns {void}
      */
-    const nextGuess = (direction) => {
+    const nextGuess = (direction: string) => {
         // prevent incorrect indication being given to device to guide next guess
         if (
             (direction === DIRECTIONS.LOWER && currentGuess < userNumber) ||
@@ -89,6 +91,16 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     }
 
     const guessRoundsListLength = guessRounds.length
+    const renderItem = ({ item, index }: ListRenderItemInfo<number>) => {
+        return (
+            <GuessLogItem
+                roundNumber={guessRoundsListLength - index}
+                guess={item}
+            />
+        )
+    }
+
+    const keyExtractor = (item: number) => item.toString()
 
     return (
         <View style={styles.screen}>
@@ -107,13 +119,8 @@ const GameScreen = ({ userNumber, onGameOver }) => {
             <View style={styles.listContainer}>
                 <FlatList
                     data={guessRounds}
-                    renderItem={(itemData) => (
-                        <GuessLogItem
-                            roundNumber={guessRoundsListLength - itemData.index}
-                            guess={itemData.item}
-                        />
-                    )}
-                    keyExtractor={(item) => item}
+                    renderItem={renderItem}
+                    keyExtractor={keyExtractor}
                 />
             </View>
         </View>

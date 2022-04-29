@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {
     View,
-    Text,
     TextInput,
     StyleSheet,
     Alert,
@@ -49,7 +48,7 @@ const StartGameScreen = ({ onPickedNumber }) => {
                             keyboardType="number-pad"
                             autoCapitalize="none"
                             autoCorrect={false}
-                            // setting the value here makes this accesable wherever the state is updated
+                            // setting the value here makes this accessible wherever the state is updated
                             value={enteredNumber}
                             onChangeText={handleNumberInput}
                         />

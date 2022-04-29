@@ -1,8 +1,13 @@
 import { View, Text, StyleSheet } from 'react-native'
 import Colors from '../../constants/colors'
-import React from 'react'
+import React, { ReactNode } from 'react'
 
-const InstructionText = ({ children, style }) => {
+type Props = {
+    children: ReactNode
+    style?: object
+}
+
+const InstructionText = ({ children, style }: Props) => {
     return <Text style={[styles.instructionText, style]}>{children}</Text>
 }
 
