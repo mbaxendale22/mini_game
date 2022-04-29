@@ -7,14 +7,10 @@ import {
     useWindowDimensions,
 } from 'react-native'
 import Title from '../components/ui/Title'
-import NumberContainer from '../components/game/NumberContainer'
-import PrimaryButton from '../components/ui/PrimaryButton'
-import Card from '../components/ui/Card'
-import InstructionText from '../components/ui/InstructionText'
-import { Ionicons } from '@expo/vector-icons'
 import GuessLogItem from '../components/game/GuessLogItem'
 import GameContentNarrow from '../components/game/GameContentNarrow'
 import GameContentWide from '../components/game/GameContentWide'
+import DIRECTIONS from '../constants/directions'
 /**
  * Generates the target number for the game
  * @param {number} min - lowest possible value for target number.
@@ -61,8 +57,8 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     const nextGuess = (direction) => {
         // prevent incorrect indication being given to device to guide next guess
         if (
-            (direction === 'lower' && currentGuess < userNumber) ||
-            (direction === 'greater' && currentGuess > userNumber)
+            (direction === DIRECTIONS.LOWER && currentGuess < userNumber) ||
+            (direction === DIRECTIONS.GREATER && currentGuess > userNumber)
         ) {
             Alert.alert('Incorrect', 'This hint is wrong', [
                 { text: 'Sorry!', style: 'cancel' },
@@ -71,7 +67,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
         }
 
         // set max or min directions given the current guess and whether it was too high or low
-        if (direction === 'lower') {
+        if (direction === DIRECTIONS.LOWER) {
             maxBoundary = currentGuess
         } else {
             minBoundary = currentGuess + 1

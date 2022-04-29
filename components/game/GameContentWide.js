@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import NumberContainer from './NumberContainer'
 import PrimaryButton from '../ui/PrimaryButton'
 import { Ionicons } from '@expo/vector-icons'
+import DIRECTIONS from '../../constants/directions'
 import React from 'react'
 
 const GameContentWide = ({ currentGuess, nextGuess }) => {
@@ -9,13 +10,14 @@ const GameContentWide = ({ currentGuess, nextGuess }) => {
         <>
             <View style={styles.buttonsContainer}>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton onPress={() => nextGuess('lower')}>
+                    <PrimaryButton onPress={() => nextGuess(DIRECTIONS.LOWER)}>
                         <Ionicons name="md-remove" size={24} color="white" />
                     </PrimaryButton>
                 </View>
                 <NumberContainer>{currentGuess}</NumberContainer>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton onPress={() => nextGuess('greater')}>
+                    <PrimaryButton
+                        onPress={() => nextGuess(DIRECTIONS.GREATER)}>
                         <Ionicons name="md-add" size={24} color="white" />
                     </PrimaryButton>
                 </View>
