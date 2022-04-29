@@ -34,7 +34,6 @@ export default function App() {
         setUserNumber(null)
         setGuessRounds(0)
     }
-    console.log(guessRounds)
 
     let screen = <StartGameScreen onPickedNumber={pickedNumber} />
 

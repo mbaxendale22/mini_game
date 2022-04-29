@@ -13,6 +13,8 @@ import Card from '../components/ui/Card'
 import InstructionText from '../components/ui/InstructionText'
 import { Ionicons } from '@expo/vector-icons'
 import GuessLogItem from '../components/game/GuessLogItem'
+import GameContentNarrow from '../components/game/GameContentNarrow'
+import GameContentWide from '../components/game/GameContentWide'
 /**
  * Generates the target number for the game
  * @param {number} min - lowest possible value for target number.
@@ -92,61 +94,20 @@ const GameScreen = ({ userNumber, onGameOver }) => {
 
     const guessRoundsListLength = guessRounds.length
 
-    // conditional layout depending on screen width > or  < 500 pixels
-    let content = (
-        <>
-            <NumberContainer>{currentGuess}</NumberContainer>
-            <Card>
-                <InstructionText style={styles.instructionText}>
-                    Higher or Lower?
-                </InstructionText>
-                <View style={styles.buttonsContainer}>
-                    <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={() => nextGuess('lower')}>
-                            <Ionicons
-                                name="md-remove"
-                                size={24}
-                                color="white"
-                            />
-                        </PrimaryButton>
-                    </View>
-                    <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={() => nextGuess('greater')}>
-                            <Ionicons name="md-add" size={24} color="white" />
-                        </PrimaryButton>
-                    </View>
-                </View>
-            </Card>
-        </>
-    )
-
-    if (width > 500) {
-        content = (
-            <>
-                <View style={styles.buttonsContainerWide}>
-                    <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={() => nextGuess('lower')}>
-                            <Ionicons
-                                name="md-remove"
-                                size={24}
-                                color="white"
-                            />
-                        </PrimaryButton>
-                    </View>
-                    <NumberContainer>{currentGuess}</NumberContainer>
-                    <View style={styles.buttonContainer}>
-                        <PrimaryButton onPress={() => nextGuess('greater')}>
-                            <Ionicons name="md-add" size={24} color="white" />
-                        </PrimaryButton>
-                    </View>
-                </View>
-            </>
-        )
-    }
     return (
         <View style={styles.screen}>
             <Title>Opponent's Guess</Title>
-            {content}
+            {width > 500 ? (
+                <GameContentWide
+                    currentGuess={currentGuess}
+                    nextGuess={nextGuess}
+                />
+            ) : (
+                <GameContentNarrow
+                    currentGuess={currentGuess}
+                    nextGuess={nextGuess}
+                />
+            )}
             <View style={styles.listContainer}>
                 <FlatList
                     data={guessRounds}
