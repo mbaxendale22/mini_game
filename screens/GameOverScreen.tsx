@@ -11,7 +11,14 @@ import Colors from '../constants/colors'
 import PrimaryButton from '../components/ui/PrimaryButton'
 import React from 'react'
 
-const GameOverScreen = ({ roundsNumber, userNumber, onStartNewGame }) => {
+type Props = {
+    roundsNumber: number
+    userNumber: number
+    onStartNewGame: () => void
+}
+
+const GameOverScreen = (props: Props) => {
+    const { roundsNumber, userNumber, onStartNewGame } = props
     const { width, height } = useWindowDimensions()
 
     // variable to control image size depending on screen orientation
