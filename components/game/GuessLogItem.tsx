@@ -2,7 +2,13 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Colors from '../../constants/colors'
 
-const GuessLogItem = ({ roundNumber, guess }) => {
+type Props = {
+    roundNumber: number
+    guess: number
+}
+
+const GuessLogItem = (props: Props) => {
+    const { roundNumber, guess } = props
     return (
         <View style={styles.listItem}>
             <Text style={styles.itemText}>#{roundNumber}</Text>

@@ -1,8 +1,13 @@
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
 import Colors from '../../constants/colors'
-import React from 'react'
+import React, { ReactNode } from 'react'
 
-const NumberContainer = ({ children }) => {
+type Props = {
+    children: ReactNode
+}
+
+const NumberContainer = (props: Props) => {
+    const { children } = props
     return (
         <View style={styles.container}>
             <Text style={styles.numberText}>{children}</Text>

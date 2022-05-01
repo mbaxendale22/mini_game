@@ -7,7 +7,13 @@ import { Ionicons } from '@expo/vector-icons'
 import DIRECTIONS from '../../constants/directions'
 import React from 'react'
 
-const GameContentNarrow = ({ currentGuess, nextGuess }) => {
+type Props = {
+    currentGuess: number
+    nextGuess: (param: string) => number
+}
+
+const GameContentNarrow = (props: Props) => {
+    const { currentGuess, nextGuess } = props
     return (
         <>
             <NumberContainer>{currentGuess}</NumberContainer>
