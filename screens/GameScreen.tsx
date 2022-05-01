@@ -12,19 +12,8 @@ import GuessLogItem from '../components/game/GuessLogItem'
 import GameContentNarrow from '../components/game/GameContentNarrow'
 import GameContentWide from '../components/game/GameContentWide'
 import DIRECTIONS from '../constants/directions'
+import { generateRandomNumberBetween } from '../helpers/generateRandomNumber'
 
-const generateRandomNumberBetween = (
-    min: number,
-    max: number,
-    exclude: number,
-): number => {
-    const randomNumber = Math.floor(Math.random() * (max - min)) + min
-    if (randomNumber === exclude) {
-        return generateRandomNumberBetween(min, max, exclude)
-    } else {
-        return randomNumber
-    }
-}
 let minBoundary = 1
 let maxBoundary = 100
 
