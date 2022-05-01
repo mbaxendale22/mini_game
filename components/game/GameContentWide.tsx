@@ -7,7 +7,7 @@ import React from 'react'
 
 type Props = {
     currentGuess: number
-    nextGuess: (param: string) => number
+    nextGuess: (direction: string) => void
 }
 
 const GameContentWide = (props: Props) => {
